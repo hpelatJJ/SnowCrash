@@ -1,0 +1,54 @@
+level00@SnowCrash:~$ find / -user flag00 -group flag00 2>&-
+/usr/sbin/john
+/rofs/usr/sbin/john
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level00@SnowCrash:~$ cat /usr/sbin/john
+cdiiddwpgswtgt
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level00@SnowCrash:~$ cat /rofs/usr/sbin/john
+cdiiddwpgswtgt
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Try a caesar-cipher on decode.fr:
+
++15	NOTTOOHARDHERE --> look like english...
++2	ABGGBBUNEQURER
++14	OPUUPPIBSEIFSF
++1	BCHHCCVOFRVSFS
++3	ZAFFAATMDPTQDQ
++11	RSXXSSLEVHLIVI
++24	EFKKFFYRIUYVIV
++23	FGLLGGZSJVZWJW
++22	GHMMHHATKWAXKX
++21	HINNIIBULXBYLY
++20	IJOOJJCVMYCZMZ
++19	JKPPKKDWNZDANA
++18	KLQQLLEXOAEBOB
++17	LMRRMMFYPBFCPC
++13	PQVVQQJCTFJGTG
++16	MNSSNNGZQCGDQD
++12	QRWWRRKDUGKHUH
++10	STYYTTMFWIMJWJ
++9	TUZZUUNGXJNKXK
++8	UVAAVVOHYKOLYL
++7	VWBBWWPIZLPMZM
++6	WXCCXXQJAMQNAN
++5	XYDDYYRKBNROBO
++4	YZEEZZSLCOSPCP
++25	DEJJEEXQHTXUHU
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level00@SnowCrash:~$ su flag00
+Password:
+Don't forget to launch getflag !
+
+-----------------------------------------------------------------------------------------------------------------------
+
+flag00@SnowCrash:~$ getflag
+Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias
