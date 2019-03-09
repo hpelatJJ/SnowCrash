@@ -1,0 +1,87 @@
+hpelat@e3r3p5:~$ sftp -P 4242 level02@10.13.0.100:level02.pcap
+
+-----------------------------------------------------------------------------------------------------------------------
+
+hpelat@e3r3p5:~$ tshark -V -r level02.pcap | grep -A 2 "Data ("
+[...]
+Data (13 bytes)
+0000  00 0d 0a 50 61 73 73 77 6f 72 64 3a 20            ...Password:
+--
+Data (1 byte)
+0000  66                                                f
+--
+Data (1 byte)
+0000  74                                                t
+--
+Data (1 byte)
+0000  5f                                                _
+--
+Data (1 byte)
+0000  77                                                w
+--
+Data (1 byte)
+0000  61                                                a
+--
+Data (1 byte)
+0000  6e                                                n
+--
+Data (1 byte)
+0000  64                                                d
+--
+Data (1 byte)
+0000  72                                                r
+--
+Data (1 byte)
+0000  7f                                                .
+--
+Data (1 byte)
+0000  7f                                                .
+--
+Data (1 byte)
+0000  7f                                                .
+--
+Data (1 byte)
+0000  4e                                                N
+--
+Data (1 byte)
+0000  44                                                D
+--
+Data (1 byte)
+0000  52                                                R
+--
+Data (1 byte)
+0000  65                                                e
+--
+Data (1 byte)
+0000  6c                                                l
+--
+Data (1 byte)
+0000  7f                                                .
+--
+Data (1 byte)
+0000  4c                                                L
+--
+Data (1 byte)
+0000  30                                                0
+--
+Data (1 byte)
+0000  4c                                                L
+[...]
+
+0d == 
+7f == del
+
+-----------------------------------------------------------------------------------------------------------------------
+
+ft_wandr.(7f).(7f).(7f)NDRel.(7f)L0L --> ft_waNDReL0L
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level02@SnowCrash:~$ su flag02
+Password:
+Don't forget to launch getflag !
+
+-----------------------------------------------------------------------------------------------------------------------
+
+flag02@SnowCrash:~$ getflag
+Check flag.Here is your token : kooda2puivaav1idi4f57q8iq
