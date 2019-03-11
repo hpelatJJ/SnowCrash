@@ -1,0 +1,23 @@
+We have one executable an file.
+level09@SnowCrash:~$ ls -l
+-rwsr-sr-x 1 flag09  level09 7640 Mar  5  2016 level09
+----r--r-- 1 flag09  level09   26 Mar  5  2016 token
+
+level09@SnowCrash:~$ ./level09
+You need to provied only one arg.
+------------------------------------------------------------------
+
+level09@SnowCrash:~$ ./level09 aaaaaaaaaaa
+abcdefghijk
+
+The executable modifies the argument by adding to each character it's index on the string.
+------------------------------------------------------------------
+
+level09@SnowCrash:~$ cat token
+f4kmm6p|=p�n��DB�Du��
+------------------------------------------------------------------
+
+level09@SnowCrash:~$ ./level09 f3iji1
+f4kmm6
+
+The content of the token file seems to have been generated with the level09 binary. We can make a script to get the original token.
