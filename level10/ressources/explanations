@@ -1,0 +1,102 @@
+We have one binary and a token.
+
+level10@SnowCrash:~$ ls -l
+total 28
+-rwsr-sr-x+ 1 flag10  level10 10817 Mar  5  2016 level10
+-rw-------  1 flag10  flag10     26 Mar  5  2016 token
+----------------------------------------------------------------------------------------------------------------------------------------
+
+./level10 file host
+sends file to host if you have access to it
+
+level10@SnowCrash:~$ ./level10 token 10.12.1.110
+You don't have access to token
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+...
+0x0804873c <+104>:    mov    eax,DWORD PTR [eax]
+0x0804873e <+106>:    mov    DWORD PTR [esp+0x4],0x4
+0x08048746 <+114>:    mov    DWORD PTR [esp],eax
+0x08048749 <+117>:    call   0x80485e0 <access@plt>		// Use access on the first argument to determine if level10 can access the file
+0x0804874e <+122>:    test   eax,eax
+0x08048750 <+124>:    jne    0x8048940 <main+620>
+0x08048756 <+130>:    mov    eax,0x8048a7b
+0x0804875b <+135>:    mov    edx,DWORD PTR [esp+0x2c]
+0x0804875f <+139>:    mov    DWORD PTR [esp+0x4],edx
+0x08048763 <+143>:    mov    DWORD PTR [esp],eax
+0x08048766 <+146>:    call   0x8048520 <printf@plt>
+0x0804876b <+151>:    mov    eax,ds:0x804a060
+0x08048770 <+156>:    mov    DWORD PTR [esp],eax
+0x08048773 <+159>:    call   0x8048530 <fflush@plt>
+0x08048778 <+164>:    mov    DWORD PTR [esp+0x8],0x0
+0x08048780 <+172>:    mov    DWORD PTR [esp+0x4],0x1
+0x08048788 <+180>:    mov    DWORD PTR [esp],0x2
+0x0804878f <+187>:    call   0x80485f0 <socket@plt>
+0x08048794 <+192>:    mov    DWORD PTR [esp+0x30],eax
+0x08048798 <+196>:    lea    eax,[esp+0x103c]
+0x0804879f <+203>:    mov    DWORD PTR [eax],0x0
+0x080487a5 <+209>:    mov    DWORD PTR [eax+0x4],0x0
+0x080487ac <+216>:    mov    DWORD PTR [eax+0x8],0x0
+0x080487b3 <+223>:    mov    DWORD PTR [eax+0xc],0x0
+0x080487ba <+230>:    mov    WORD PTR [esp+0x103c],0x2
+0x080487c4 <+240>:    mov    eax,DWORD PTR [esp+0x2c]
+0x080487c8 <+244>:    mov    DWORD PTR [esp],eax
+0x080487cb <+247>:    call   0x8048600 <inet_addr@plt>
+0x080487d0 <+252>:    mov    DWORD PTR [esp+0x1040],eax
+0x080487d7 <+259>:    mov    DWORD PTR [esp],0x1b39
+0x080487de <+266>:    call   0x8048550 <htons@plt>
+0x080487e3 <+271>:    mov    WORD PTR [esp+0x103e],ax
+0x080487eb <+279>:    mov    DWORD PTR [esp+0x8],0x10
+0x080487f3 <+287>:    lea    eax,[esp+0x103c]
+0x080487fa <+294>:    mov    DWORD PTR [esp+0x4],eax
+0x080487fe <+298>:    mov    eax,DWORD PTR [esp+0x30]
+0x08048802 <+302>:    mov    DWORD PTR [esp],eax
+0x08048805 <+305>:    call   0x8048610 <connect@plt>
+0x0804880a <+310>:    cmp    eax,0xffffffff
+0x0804880d <+313>:    jne    0x8048830 <main+348>
+0x0804880f <+315>:    mov    eax,0x8048a95
+0x08048814 <+320>:    mov    edx,DWORD PTR [esp+0x2c]
+0x08048818 <+324>:    mov    DWORD PTR [esp+0x4],edx
+0x0804881c <+328>:    mov    DWORD PTR [esp],eax
+0x0804881f <+331>:    call   0x8048520 <printf@plt>
+0x08048824 <+336>:    mov    DWORD PTR [esp],0x1
+0x0804882b <+343>:    call   0x8048590 <exit@plt>
+0x08048830 <+348>:    mov    DWORD PTR [esp+0x8],0x8
+0x08048838 <+356>:    mov    DWORD PTR [esp+0x4],0x8048ab3
+0x08048840 <+364>:    mov    eax,DWORD PTR [esp+0x30]
+0x08048844 <+368>:    mov    DWORD PTR [esp],eax
+0x08048847 <+371>:    call   0x80485c0 <write@plt>
+0x0804884c <+376>:    cmp    eax,0xffffffff
+0x0804884f <+379>:    jne    0x8048872 <main+414>
+...
+
+Man access:
+
+NOTES
+Warning: Using access() to check if a user is authorized  to,  for
+example,  open  a file before actually doing so using open(2) cre‐
+ates a security hole, because the user  might  exploit  the  short
+time  interval between checking and opening the file to manipulate
+it.
+
+In order to exploit this vulnerability, we create a script (see script.sh).
+------------------------------------------------------------
+
+After runing the script we get:
+
+.*( )*.
+.*( )*.
+.*( )*.
+woupa2yuojeeaaed06riuj63c
+.*( )*.
+.*( )*.
+.*( )*.
+
+All there is left to do is to:
+
+level10@SnowCrash:~$ su flag10
+Password:
+Don't forget to launch getflag !
+flag10@SnowCrash:~$ getflag
+Check flag.Here is your token : feulo4b72j7edeahuete3no7c
