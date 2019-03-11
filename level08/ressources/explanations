@@ -4,10 +4,15 @@ total 16
 -rw-------  1 flag08 flag08    26 Mar  5  2016 token
 
 We have a executable and a file. Once again the executable has suid ang guid rigths set.
-------------------------------------------------------------------------------------------------------level08@SnowCrash:~$ ./level08
+
+------------------------------------------------------------------------------------------------------
+
+level08@SnowCrash:~$ ./level08
 ./level08 [file to read]
 
-------------------------------------------------------------------------------------------------------level08@SnowCrash:~$ ./level08 token
+------------------------------------------------------------------------------------------------------
+
+level08@SnowCrash:~$ ./level08 token
 You may not access 'token'
 
 ------------------------------------------------------------------------------------------------------
@@ -102,15 +107,27 @@ End of assembler dump.
 So the binary compares the name of the argument suplied to level08 to the string "token". If they match it prints : You may not access 'token'.
 If they dont, it opens the file and print the token.
 All we have to do is modify the name of the file. To do that, we first grant ourself enough rigths.
+
 -----------------------------------------------------------------------------------------------------
 
 level08@SnowCrash:~$ chmod 777 $HOME
+
+-----------------------------------------------------------------------------------------------------
+
 level08@SnowCrash:~$ mv token tooken
+
+-----------------------------------------------------------------------------------------------------
+
 level08@SnowCrash:~$ ./level08 tooken
 quif5eloekouj29ke0vouxean
-We get our token but it is not the flag.
+
+-----------------------------------------------------------------------------------------------------
+
 level08@SnowCrash:~$ su flag08
 Password:
 Don't forget to launch getflag !
+
+-----------------------------------------------------------------------------------------------------
+
 flag08@SnowCrash:~$ getflag
 Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f

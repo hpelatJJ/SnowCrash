@@ -14,5 +14,6 @@ int    main(int ac, char **av)
 		printf("%c", buff[i] - i);
 		i++;
 	}
+	puts("");
 	return (0);
 }
