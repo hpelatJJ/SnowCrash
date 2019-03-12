@@ -18,10 +18,6 @@ We can see an error because the address is already used and with a 'top', we can
 
 -----------------------------------------------------------------------------------------------------
 
-We can write to all with the 'wall' shell command
-
------------------------------------------------------------------------------------------------------
-
 So we just have to send the return of getflag on lolhost 5151 with wall
 
 -----------------------------------------------------------------------------------------------------
