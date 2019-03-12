@@ -51,7 +51,7 @@ Dump of assembler code for function main:
 	0x080485a0 <+140>:  ret
 End of assembler dump.
 
-With gdb we can the assembly dump of the binary. We can see a call to asprintf with it's first argument beign at esp (where the allocated string address will be stored), it's second at esp + 0x4 (0x8048688) and it's last at esp + 0x8 (return of getenv).
+With gdb we see can the assembly dump of the binary. We can see a call to asprintf with it's first argument beign at esp (where the allocated string address will be stored), it's second at esp + 0x4 (0x8048688) and it's last at esp + 0x8 (return of getenv).
 
 Using gdb we can print those arguments.
 (gdb) x/s 0x8048688

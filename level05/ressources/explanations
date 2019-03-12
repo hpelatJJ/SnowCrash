@@ -1,6 +1,6 @@
 When login as level05, "You have a new mail." is printed
 
-Mail are usually stored in /car/mail folder
+Mail are usually stored in /var/mail folder
 
 -----------------------------------------------------------------------------------------------------------------------
 

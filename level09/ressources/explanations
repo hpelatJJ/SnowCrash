@@ -30,16 +30,7 @@ The content of the token file seems to have been generated with the level09 bina
 
 ------------------------------------------------------------------
 
-level09@SnowCrash:~$ cd ..
-
-------------------------------------------------------------------
-
-level09@SnowCrash:~$ chmod 777 level09
-
-------------------------------------------------------------------
-
-level09@SnowCrash:/home/user$ cd -
-/home/user/level09
+level09@SnowCrash:~$ chmod 777 $HOME
 
 ------------------------------------------------------------------
 
@@ -51,3 +42,11 @@ level09@SnowCrash:~$ gcc script.c
 
 level09@SnowCrash:~$ ./a.out token
 f3iji1ju5yuevaus41q1afiuq
+
+------------------------------------------------------------------
+
+level09@SnowCrash:~$ su flag09
+Password:
+Don't forget to launch getflag !
+flag09@SnowCrash:~$ getflag
+Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z

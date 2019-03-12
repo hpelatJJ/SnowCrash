@@ -24,7 +24,7 @@ In a browser:
 http://10.13.0.100:4747/level04.pl?x=`getflag`
 
 Passing x as param to the CGI
-putting getflag in backquotes, so the echo function will print the return value of the function getflag
+putting getflag in backquotes, so the echo function will print the return value of the getflag command
 
 -----------------------------------------------------------------------------------------------------------------------
 
