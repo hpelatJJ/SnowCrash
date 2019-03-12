@@ -81,6 +81,7 @@ time  interval between checking and opening the file to manipulate
 it.
 
 In order to exploit this vulnerability, we create a script (see script.sh).
+
 ------------------------------------------------------------
 
 After runing the script we get:
@@ -95,8 +96,13 @@ woupa2yuojeeaaed06riuj63c
 
 All there is left to do is to:
 
+------------------------------------------------------------
+
 level10@SnowCrash:~$ su flag10
 Password:
 Don't forget to launch getflag !
+
+------------------------------------------------------------
+
 flag10@SnowCrash:~$ getflag
 Check flag.Here is your token : feulo4b72j7edeahuete3no7c
