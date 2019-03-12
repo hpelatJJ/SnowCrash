@@ -1,0 +1,104 @@
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804858c <+0>:		push   ebp
+   0x0804858d <+1>:		mov    ebp,esp
+   0x0804858f <+3>:		and    esp,0xfffffff0
+   0x08048592 <+6>:		sub    esp,0x10
+   0x08048595 <+9>:		call   0x8048380 <getuid@plt>          --> Call to getuid
+   0x0804859a <+14>:	cmp    eax,0x1092                      --> Compare the return of getuid with 4242
+   0x0804859f <+19>:	je     0x80485cb <main+63>             --> if equal, jump to ft_des which whill give us our token
+   0x080485a1 <+21>:	call   0x8048380 <getuid@plt>
+   0x080485a6 <+26>:	mov    edx,0x80486c8
+   0x080485ab <+31>:	mov    DWORD PTR [esp+0x8],0x1092
+   0x080485b3 <+39>:	mov    DWORD PTR [esp+0x4],eax
+   0x080485b7 <+43>:	mov    DWORD PTR [esp],edx
+   0x080485ba <+46>:	call   0x8048360 <printf@plt>
+   0x080485bf <+51>:	mov    DWORD PTR [esp],0x1
+   0x080485c6 <+58>:	call   0x80483a0 <exit@plt>
+   0x080485cb <+63>:	mov    DWORD PTR [esp],0x80486ef
+   0x080485d2 <+70>:	call   0x8048474 <ft_des>
+   0x080485d7 <+75>:	mov    edx,0x8048709
+   0x080485dc <+80>:	mov    DWORD PTR [esp+0x4],eax
+   0x080485e0 <+84>:	mov    DWORD PTR [esp],edx
+   0x080485e3 <+87>:	call   0x8048360 <printf@plt>
+   0x080485e8 <+92>:	leave
+   0x080485e9 <+93>:	ret
+End of assembler dump.
+
+------------------------------------------------------------------
+
+But our uid is 2013
+
+------------------------------------------------------------------
+
+level13@SnowCrash:~$ file level13
+level13: setuid setgid ELF 32-bit LSB executable,
+Intel 80386, version 1 (SYSV),
+dynamically linked (uses shared libs),
+for GNU/Linux 2.6.24,
+BuildID[sha1]=0xde91cfbf70ca6632d7e4122f8210985dea778605,
+not stripped
+
+We now know it's dinamically linked, so we're gonna exploit it.
+
+------------------------------------------------------------------
+
+Were gonna make our 'getuid' function which will return 4242 (see innocent_file.c), and compil it as a shared library:
+
+level13@SnowCrash:~$ gcc -c innocent_file.c ; ls -1
+innocent_file.c
+innocent_file.o
+level13
+
+level13@SnowCrash:~$ gcc -shared innocent_file.o -o innocent_file.so ; ls -1
+innocent_file.c
+innocent_file.o
+innocent_file.so
+level13
+
+------------------------------------------------------------------
+
+Now we can see in gdb that our library is loaded at the start of 'level13'
+
+level13@SnowCrash:~$ env LD_PRELOAD=$HOME/libc.so gdb ./level13
+(gdb) disas getuid
+Dump of assembler code for function getuid@plt:
+   0x08048380 <+0>:	jmp    *0x804a008
+   0x08048386 <+6>:	push   $0x10
+   0x0804838b <+11>:	jmp    0x8048350
+End of assembler dump.
+
+Normal getuid, our is not loaded yet.
+
+------------------------------------------------------------------
+
+(gdb) b main
+Breakpoint 1 at 0x804858f
+
+------------------------------------------------------------------
+
+(gdb) r
+Starting program: /home/user/level13/level13
+
+Breakpoint 1, 0x0804858f in main ()
+
+------------------------------------------------------------------
+
+(gdb) disas getuid
+Dump of assembler code for function getuid:
+   0xb7fd840c <+0>:	push   %ebp
+   0xb7fd840d <+1>:	mov    %esp,%ebp
+   0xb7fd840f <+3>:	mov    $0x1092,%eax
+   0xb7fd8414 <+8>:	pop    %ebp
+   0xb7fd8415 <+9>:	ret
+End of assembler dump.
+
+Loaded !
+
+------------------------------------------------------------------
+
+(gdb) n
+Single stepping until exit from function main,
+which has no line number information.
+your token is 2A31L79asukciNyi8uppkEuSx
+0xb7e424d3 in __libc_start_main () from /lib/i386-linux-gnu/libc.so.6
