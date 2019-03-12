@@ -1,0 +1,84 @@
+No file in our home, no file owned by flag14...
+But there is a password, which is stored somewhere...
+And there's a binary that know were it's stored : 'getflag'
+
+So we disassemble it, saw that it call getuid and tryed the previous exploit but:
+
+-----------------------------------------------------------------------------------------------------
+
+level14@SnowCrash:~$ env LD_PRELOAD=$HOME/innocent_file.so getflag
+Injection Linked lib detected exit..
+
+Not twice...
+
+-----------------------------------------------------------------------------------------------------
+
+So we check further in the code and saw fifteen strings (as many as levels in this projects...) given as param to the 'ft_des' function.
+The 'ft_des' function gave us our token on the level13
+And we saw that 'getflag' compare the return value of getuid to give the right param to 'ft_des'
+So here is the exploit:
+
+-----------------------------------------------------------------------------------------------------
+
+level14@SnowCrash:~$ gdb getflag
+(gdb) b ptrace
+Breakpoint 1 at 0x8048540
+
+The 'getflag' function exit if ptrace return a signed number (error), which is the case in gdb
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) b getuid
+Breakpoint 2 at 0x80484b0
+
+The 'getuid' function will return '2014' (the uid of level14) but we want 3014 (the uid of flag14)
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) r
+Starting program: /bin/getflag
+
+Breakpoint 1, 0xb7f146d0 in ptrace () from /lib/i386-linux-gnu/libc.so.6       --> Beginning of ptrace
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) s
+Single stepping until exit from function ptrace,
+which has no line number information.
+0x0804898e in main ()                                                          --> Exiting of ptrace
+(gdb)
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) set $eax=1
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) s
+Single stepping until exit from function main,
+which has no line number information.
+
+Breakpoint 2, 0xb7ee4cc0 in getuid () from /lib/i386-linux-gnu/libc.so.6       --> Beginning of getuid
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) s
+Single stepping until exit from function getuid,
+which has no line number information.
+0x08048b02 in main ()                                                          --> Exiting of getuid
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) set $eax=3014
+
+-----------------------------------------------------------------------------------------------------
+
+(gdb) s
+Single stepping until exit from function main,
+which has no line number information.
+Check flag.Here is your token : 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ
+0xb7e454d3 in __libc_start_main () from /lib/i386-linux-gnu/libc.so.6
+
+-----------------------------------------------------------------------------------------------------
+
+We can retrieve all the passwords like this... we are happy to have discovered the vulnerabity at the end.
